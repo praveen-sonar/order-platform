@@ -1,4 +1,4 @@
-# Order Platform
+# Order Platform - its set up as mono repo on SonarCloud
 
 A microservices based order management platform built with Spring Boot.
 The system handles authentication, users, products, orders, payments,
