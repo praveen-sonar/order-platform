@@ -39,4 +39,4 @@ jobs:
         run: |
              mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=praveen-sonar-order-platform
              mvn -B -f api-gateway/pom.xml verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=praveen-sonar-order-platform-api-gateway
-             mvn -B -pl auth-service -am verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=praveen-sonar-order-platform-auth-service
+             mvn -B -pl auth-service/pom.xml -am verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=praveen-sonar-order-platform-auth-service

@@ -39,3 +39,4 @@ token:
   access-minutes: 15
   refresh-days: 7
   issuer: "auth-service"
+  signing-secret: "hunter2-super-secret"
