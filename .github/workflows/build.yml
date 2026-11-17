@@ -1,4 +1,4 @@
-name: Build
+name: local build
 on:
   push:
     branches:
