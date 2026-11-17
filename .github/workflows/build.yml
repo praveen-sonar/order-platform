@@ -1,14 +1,16 @@
-name: SonarQube
+name: local build with token
 on:
   push:
     branches:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
+
 jobs:
   build:
     name: Build and analyze
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
@@ -32,8 +34,9 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build and analyze
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_LOCAL_DOCKER }}
+          SONAR_HOST_URL: http://localhost:9000
         run: |
-          mvn -B install org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=praveen-sonar-order-platform
-          mvn -B -f api-gateway/pom.xml verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=praveen-sonar-order-platform-api-gateway
-          mvn -B -f auth-service/pom.xml verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=praveen-sonar-order-platform-auth-service
+             mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=praveen-sonar-order-platform
+             mvn -B -f api-gateway/pom.xml verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=praveen-sonar-order-platform-api-gateway
+             mvn -B -pl auth-service -am verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=praveen-sonar-order-platform-auth-service
